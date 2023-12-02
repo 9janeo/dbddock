@@ -1,0 +1,14 @@
+#wrapper-footer-full {
+  border-top: $dbd solid 1px;
+}
+
+#wrapper-footer {
+  &.bg-dark {
+    color: #fff;
+    .site-info {
+      a {
+        color: #fff;        
+      }
+    }
+  }
+}
