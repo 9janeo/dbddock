@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  wordpress:
+    image: wordpress:latest
+    restart: always
+    # Restart line controls the restart mode, meaning if the container stops running for any reason, it will restart the process immediately.
+    networks:
+      - wpnetwork
+    environment:
+      WORDPRESS_TABLE_PREFIX: wp_
+      WORDPRESS_DB_HOST: wpstorage
+      WORDPRESS_DB_NAME: ${DB_NAME}
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: root
+    # Similar to MySQL image variables, the last four lines define the main variables needed for the WordPress container to work properly with the MySQL container.
+    ports:
+      - "${SITEPORT}:80"
+    # The previous line defines the port that the WordPress container will use. After successful installation, the full path will look like this: http://localhost:8000
+    volumes:
+      - dbdstaging-data:/var/www/html
+      - ./wp-content:/var/www/html/wp-content
+networks:
+  wpnetwork:
+    external: true
+volumes:
+  dbdstaging-data:
